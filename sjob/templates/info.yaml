@@ -1,0 +1,13 @@
+athena:
+    timelimit: False
+    queues:
+        batch:
+            nodeMem: 16000
+            numProc: 4
+baldr:
+    timelimit: False
+    queues:
+        batch:
+            nodeMem: 64325
+            numProc: 16
+

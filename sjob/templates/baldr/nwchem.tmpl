@@ -1,0 +1,12 @@
+export TMPDIR=/tmp/$USER/$PBS_JOBID
+export NSLOTS=${nslot}
+export SCRATCH_DIR=/tmp/$USER/$PBS_JOBID
+export WHICH_NWCHEM=`which nwchem`
+export WHICH_HOST=`hostname`
+
+mkdir -p $TMPDIR
+cd $TMPDIR
+cp $PBS_O_WORKDIR/${input} $TMPDIR/${input}
+
+mpirun -np ${nslot} nwchem ${input} > $PBS_O_WORKDIR/${output}
+
