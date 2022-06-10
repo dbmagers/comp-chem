@@ -1,11 +1,11 @@
-#!/opt/miniconda3/envs/python2.7/bin/python
+#!/usr/bin/python3
 
-## J. Agarwal
-## Rev 1: 10/9/13
+# prints completed jobs stored in ~/.queue_complete
+# author: J. Argawal, D.B. Magers
 
 import yaml
 import os
-import commands
+import subprocess
 import time
 from optparse import OptionParser as OP
 import sys
@@ -36,7 +36,7 @@ if not os.path.exists(queueCompleteFile):
 
 # Load queue complete YAML
 numPrintJobs = 5
-queueComplete = yaml.load(commands.getoutput("tail -"+str(6*numPrintJobs)+" "+queueCompleteFile))
+queueComplete = yaml.safe_load(subprocess.getoutput("tail -"+str(6*numPrintJobs)+" "+queueCompleteFile))
 
 # Print job information
 #print(("-"*28)+"\n# queuecomplete//ja//ver1  #\n"+("-"*28)+"\n")

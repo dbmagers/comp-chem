@@ -1,8 +1,7 @@
-#!/opt/miniconda3/envs/python2.7/bin/python
+#!/usr/bin/python3
 
-# D. B. Magers
-# 2.27.18
 # extracts xyz file from cfour2.0 output file
+# author: D.B. Magers
 
 import sys
 import argparse

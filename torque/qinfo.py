@@ -1,14 +1,9 @@
 #!/usr/bin/python3
 
-## J. Agarwal
-## Rev 1: 5/24/13
-## Rev 2: 6/17/13 
-## Rev 2.1: 7/11/13
-## Rev 2.2 7/26/13
-## Rev 2.3 12/27/16 D. Brandon Magers
-## Rev 3 __/__ /20 Rayley Farnam
+# pretty prints current jobs from torque qstat call
+# author: J. Agarwal, D.B. Magers, R. Farnam
 
-### Import required modules ###
+# Import required modules
 import subprocess
 import xml.etree.ElementTree as ET
 from optparse import OptionParser as OP
@@ -17,8 +12,7 @@ import sys
 import os
 import yaml
 
-### Functions ###
-
+# Functions
 
 def qstat(path):
    if os.path.exists(path): return subprocess.getoutput(path+" -f -x") 
@@ -153,7 +147,6 @@ def print_qinfo_data(queueInfo, jobInfo, options):
          print(dashLine)
 
 ### Main ###
-
 
 # Parse arguments
 _version = "3"

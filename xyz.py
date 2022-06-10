@@ -1,15 +1,14 @@
-#!/opt/miniconda3/envs/python2.7/bin/python
+#!/usr/bin/python3
 
-# D. B. Magers
-# 2.26.28
 # converts xyz file from angstrom to bohr or vice versa
+# author: D.B. Magers
 
 import argparse
 from argparse import RawTextHelpFormatter
 bohr_to_angstrom = 0.52917721067 # codata 2014 value
 
 # argument parser
-description = 'Converts xyz file units to angstrom or bohr.\nxyz file is assumed to follow the the standard format.\nExample:\n 2\n comment line\n H  0.0000  0.0000  0.3705\n H  0.0000  0.0000 -0.3705\n ...'
+description = 'Converts xyz file units to angstrom or bohr.\n\n1 bohr = '+str(bohr_to_angstrom)+'\n\nxyz file is assumed to follow the the standard format.\nExample:\n 2\n comment line\n H  0.0000  0.0000  0.3705\n H  0.0000  0.0000 -0.3705\n ...'
 parser = argparse.ArgumentParser(description=description, formatter_class=RawTextHelpFormatter)
 parser.add_argument('-u','--unit', choices=["angstrom","bohr"], help="Set unit to convert to", default='angstrom')
 parser.add_argument('-i', '--input', help='Set the name of the input file. (Default: geo.xyz)', default='geo.xyz')

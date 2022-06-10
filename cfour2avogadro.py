@@ -1,12 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
-# J. Agarwal, B. Magers
-# 6/24/2013
 # Converts cfour output into gaussian log file 
 # in order to be read by avogadro
+# author: J. Agarwal, D.B. Magers
 
-
-import commands
 import sys
 
 if len(sys.argv) != 2:

@@ -1,14 +1,18 @@
-#!/opt/miniconda3/envs/python2.7/bin/python
+#!/usr/bin/python3
+
+# write completed job info to ~/.queue_complete
+# to be run by .sh torque submit script at end of job
+# author: D.B. Magers
 
 import yaml
 import os
-import commands
+import subprocess
 import time
 import xml.etree.ElementTree as ET
 import sys
 
 def qstat(path,jobid):
-   if os.path.exists(path): return commands.getoutput(path+" -f -x "+jobid) 
+   if os.path.exists(path): return subprocess.getoutput(path+" -f -x "+jobid) 
    else: 
       print("qstat command not found...exiting.")
       sys.exit()
@@ -36,7 +40,7 @@ def find_job_data(job):
 
 def get_qinfo_data(jobid):
    # Parse qstat output
-   qstatXml = ET.fromstring(qstat(commands.getoutput("which qstat"),jobid))
+   qstatXml = ET.fromstring(qstat(subprocess.getoutput("which qstat"),jobid))
     
    # Data structures
    queueInfo = {} # queue: [slots, used]
@@ -45,7 +49,7 @@ def get_qinfo_data(jobid):
 
    for job in qstatXml.iter("Job"):
       data = find_job_data(job)
-      if jobInfo.has_key('batch'): jobInfo['batch'].append(data)
+      if 'batch' in jobInfo: jobInfo['batch'].append(data)
       else: jobInfo["batch"] = [data]
 
    return queueInfo, jobInfo

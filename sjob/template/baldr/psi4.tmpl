@@ -1,9 +1,0 @@
-export TMPDIR=/tmp/$USER/$PBS_JOBID
-export PSI_SCRATCH=/tmp/$USER/$PBS_JOBID
-export OMP_NUM_THREADS=1
-export NSLOTS=${nslot}
-
-mkdir -p /tmp/$USER/$PBS_JOBID
-cd $PBS_O_WORKDIR
-
-/opt/miniconda3/envs/psi4/bin/psi4 -n ${nslot} -i ${input} -o ${output}

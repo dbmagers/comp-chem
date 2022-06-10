@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# D. B. Magers
 # 8.9.17
 # parses psi4 & cfour2 output files for main info
+# author: D.B. Magers
 
 import sys
 import re

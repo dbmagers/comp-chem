@@ -1,4 +1,6 @@
-#!/opt/miniconda3/envs/python2.7/bin/python
+#!/usr/bin/python3
+
+# script for writing submit scripts to torque queue
 
 import fnmatch
 import argparse
@@ -30,11 +32,11 @@ checks = {
 curdir = os.getcwd().split('/')[-1]
 scriptname = '%s.sh' % curdir
 commandline = ' '.join(sys.argv)
-nodeInfo = yaml.load(open(sjob_path + '/programs/info.yaml','r'))
+nodeInfo = yaml.safe_load(open(sjob_path + '/templates/info.yaml','r'))
 queue_choices = nodeInfo[cluster_name]['queues'].keys()
 
 # get available programs
-template_path = sjob_path + '/template/' + cluster_name + '/'
+template_path = sjob_path + '/templates/' + cluster_name + '/'
 programs = []
 for root, dirnames, filenames in os.walk(template_path):
   for filename in fnmatch.filter(filenames, '*.tmpl'):
@@ -44,7 +46,7 @@ program_choices = [elem[len(template_path):-5] for elem in programs]
 program_choices.remove('header')
 
 # argumet parser from command line
-parser = argparse.ArgumentParser(description='Submit jobs to the queue.')
+parser = argparse.ArgumentParser(description='Submit jobs to the torque queue.')
 parser.add_argument('-d', '--debug', action='store_true',  help='Just create the script. Do not submit.')
 parser.add_argument('-i', '--input', help='Set the name of the input file. (Default: input.dat)', default='input.dat')
 parser.add_argument('-N', '--name', help='Set name of the job. (default: %s)' % curdir, default=curdir)
@@ -69,7 +71,7 @@ if args['nslot'] == 0:
 
 # check for ZMAT for cfour run
 if (args['program'] == 'cfour' or args['program'] == 'cfour2' or args['program'] == 'cfour2p') and args['input'] != 'ZMAT':
-#    print "For cfour ZMAT is required for input file.  Looking for ZMAT."
+#    print("For cfour ZMAT is required for input file.  Looking for ZMAT.")
     args['input'] = 'ZMAT'
 if args['program'] == 'cfour' or args['program'] == 'cfour2' or args['program'] == 'cfour2p':
     args['nslot'] = 1
@@ -89,7 +91,7 @@ try:
 					mppwidth=args['nslot'],
 					cmdline=commandline))
 except IOError as e:
-    print "Unable to create your script file."
+    print("Unable to create your script file.")
     sys.exit(1)
 
 # Load in program specific file
@@ -97,7 +99,7 @@ program = None
 try:
     program = Template(filename=(template_path+'%s.tmpl') % args['program'])
 except IOError as e:
-    print "Unable to open the program template file for the requested program."
+    print("Unable to open the program template file for the requested program.")
     sys.exit(1)
 
 script.write(program.render(nslot=args['nslot'],
