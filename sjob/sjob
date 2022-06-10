@@ -1,0 +1,5 @@
+#!/usr/bin/python3
+
+# wrap modules into one script
+# will soft link directly to this file with terminal executable permissions
+import sjob
